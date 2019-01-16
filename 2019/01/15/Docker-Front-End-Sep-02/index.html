@@ -7,13 +7,13 @@
   
   <title>高可用MySQL集群搭建 | 昶月</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="MySQL集群内容来源：Docker环境下的前后端分离项目部署与运维 这篇文档主要包含三个部分：  使用docker搭建MySQL集群 使用haproxy做负载均衡并实现双机热备 利用XtraBackup完成数据库的热备份和冷还原  1. 使用docker搭建MySQL集群这一部分学习使用docker搭建MySQL集群。常用的MySQL集群方案有Replication和PXC两种，性能对比如图。">
+  <meta name="description" content="内容来源：Docker环境下的前后端分离项目部署与运维 这篇文档主要包含三个部分：  使用docker搭建MySQL集群 使用haproxy做负载均衡并实现双机热备 利用XtraBackup完成数据库的热备份和冷还原  1. 使用docker搭建MySQL集群这一部分学习使用docker搭建MySQL集群。常用的MySQL集群方案有Replication和PXC两种，性能对比如图。   Perco">
 <meta name="keywords" content="docker,MySQL,Haproxy,XtraBackup">
 <meta property="og:type" content="article">
 <meta property="og:title" content="高可用MySQL集群搭建">
 <meta property="og:url" content="http://yoursite.com/2019/01/15/Docker-Front-End-Sep-02/index.html">
 <meta property="og:site_name" content="昶月">
-<meta property="og:description" content="MySQL集群内容来源：Docker环境下的前后端分离项目部署与运维 这篇文档主要包含三个部分：  使用docker搭建MySQL集群 使用haproxy做负载均衡并实现双机热备 利用XtraBackup完成数据库的热备份和冷还原  1. 使用docker搭建MySQL集群这一部分学习使用docker搭建MySQL集群。常用的MySQL集群方案有Replication和PXC两种，性能对比如图。">
+<meta property="og:description" content="内容来源：Docker环境下的前后端分离项目部署与运维 这篇文档主要包含三个部分：  使用docker搭建MySQL集群 使用haproxy做负载均衡并实现双机热备 利用XtraBackup完成数据库的热备份和冷还原  1. 使用docker搭建MySQL集群这一部分学习使用docker搭建MySQL集群。常用的MySQL集群方案有Replication和PXC两种，性能对比如图。   Perco">
 <meta property="og:locale" content="zh-cn">
 <meta property="og:image" content="https://i.imgur.com/3AwafEQ.png">
 <meta property="og:image" content="https://i.imgur.com/8GsSMHM.png">
@@ -31,10 +31,10 @@
 <meta property="og:image" content="https://i.imgur.com/FjapNnX.png">
 <meta property="og:image" content="https://i.imgur.com/Mbjg9nv.png">
 <meta property="og:image" content="https://i.imgur.com/WVlBHf0.png">
-<meta property="og:updated_time" content="2019-01-16T13:03:41.556Z">
+<meta property="og:updated_time" content="2019-01-16T13:09:55.906Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="高可用MySQL集群搭建">
-<meta name="twitter:description" content="MySQL集群内容来源：Docker环境下的前后端分离项目部署与运维 这篇文档主要包含三个部分：  使用docker搭建MySQL集群 使用haproxy做负载均衡并实现双机热备 利用XtraBackup完成数据库的热备份和冷还原  1. 使用docker搭建MySQL集群这一部分学习使用docker搭建MySQL集群。常用的MySQL集群方案有Replication和PXC两种，性能对比如图。">
+<meta name="twitter:description" content="内容来源：Docker环境下的前后端分离项目部署与运维 这篇文档主要包含三个部分：  使用docker搭建MySQL集群 使用haproxy做负载均衡并实现双机热备 利用XtraBackup完成数据库的热备份和冷还原  1. 使用docker搭建MySQL集群这一部分学习使用docker搭建MySQL集群。常用的MySQL集群方案有Replication和PXC两种，性能对比如图。   Perco">
 <meta name="twitter:image" content="https://i.imgur.com/3AwafEQ.png">
   
     <link rel="alternate" href="/atom.xml" title="昶月" type="application/atom+xml">
@@ -104,7 +104,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="MySQL集群"><a href="#MySQL集群" class="headerlink" title="MySQL集群"></a>MySQL集群</h2><p>内容来源：<a href="https://coding.imooc.com/class/219.html" target="_blank" rel="noopener">Docker环境下的前后端分离项目部署与运维</a></p>
+        <p>内容来源：<a href="https://coding.imooc.com/class/219.html" target="_blank" rel="noopener">Docker环境下的前后端分离项目部署与运维</a></p>
 <p>这篇文档主要包含三个部分：</p>
 <ul>
 <li>使用docker搭建MySQL集群</li>
