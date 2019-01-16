@@ -5,15 +5,37 @@
   
 
   
-  <title>昶月</title>
+  <title>高可用MySQL集群搭建 | 昶月</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="昶月">
-<meta property="og:url" content="http://yoursite.com/index.html">
+  <meta name="description" content="MySQL集群内容来源：Docker环境下的前后端分离项目部署与运维 这篇文档主要包含三个部分：  使用docker搭建MySQL集群 使用haproxy做负载均衡并实现双机热备 利用XtraBackup完成数据库的热备份和冷还原  1. 使用docker搭建MySQL集群这一部分学习使用docker搭建MySQL集群。常用的MySQL集群方案有Replication和PXC两种，性能对比如图。">
+<meta name="keywords" content="docker,MySQL,Haproxy,XtraBackup">
+<meta property="og:type" content="article">
+<meta property="og:title" content="高可用MySQL集群搭建">
+<meta property="og:url" content="http://yoursite.com/2019/01/15/Docker-Front-End-Sep-02/index.html">
 <meta property="og:site_name" content="昶月">
+<meta property="og:description" content="MySQL集群内容来源：Docker环境下的前后端分离项目部署与运维 这篇文档主要包含三个部分：  使用docker搭建MySQL集群 使用haproxy做负载均衡并实现双机热备 利用XtraBackup完成数据库的热备份和冷还原  1. 使用docker搭建MySQL集群这一部分学习使用docker搭建MySQL集群。常用的MySQL集群方案有Replication和PXC两种，性能对比如图。">
 <meta property="og:locale" content="zh-cn">
+<meta property="og:image" content="https://i.imgur.com/3AwafEQ.png">
+<meta property="og:image" content="https://i.imgur.com/8GsSMHM.png">
+<meta property="og:image" content="https://i.imgur.com/fKnfEHL.png">
+<meta property="og:image" content="https://i.imgur.com/bFP1lwB.png">
+<meta property="og:image" content="https://i.imgur.com/XTszPBS.png">
+<meta property="og:image" content="https://i.imgur.com/e8SDJtU.png">
+<meta property="og:image" content="https://i.imgur.com/KolJmXj.png">
+<meta property="og:image" content="https://i.imgur.com/gguqbtl.png">
+<meta property="og:image" content="https://i.imgur.com/Z06VxG5.png">
+<meta property="og:image" content="https://i.imgur.com/UfHoFmq.png">
+<meta property="og:image" content="https://i.imgur.com/WVlBHf0.png">
+<meta property="og:image" content="https://i.imgur.com/vzYqsQA.png">
+<meta property="og:image" content="https://i.imgur.com/jRzrekT.png">
+<meta property="og:image" content="https://i.imgur.com/FjapNnX.png">
+<meta property="og:image" content="https://i.imgur.com/Mbjg9nv.png">
+<meta property="og:image" content="https://i.imgur.com/WVlBHf0.png">
+<meta property="og:updated_time" content="2019-01-16T13:03:41.556Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="昶月">
+<meta name="twitter:title" content="高可用MySQL集群搭建">
+<meta name="twitter:description" content="MySQL集群内容来源：Docker环境下的前后端分离项目部署与运维 这篇文档主要包含三个部分：  使用docker搭建MySQL集群 使用haproxy做负载均衡并实现双机热备 利用XtraBackup完成数据库的热备份和冷还原  1. 使用docker搭建MySQL集群这一部分学习使用docker搭建MySQL集群。常用的MySQL集群方案有Replication和PXC两种，性能对比如图。">
+<meta name="twitter:image" content="https://i.imgur.com/3AwafEQ.png">
   
     <link rel="alternate" href="/atom.xml" title="昶月" type="application/atom+xml">
   
@@ -60,68 +82,7 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-    <article id="post-firewall-centos7" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/01/16/firewall-centos7/" class="article-date">
-  <time datetime="2019-01-16T01:05:51.000Z" itemprop="datePublished">2019-01-16</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/01/16/firewall-centos7/">Centos7上防火墙常用设置</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>查看、启动、关闭、重启防火墙</p>
-<pre><code>firewall-cmd --state
-service firewall start
-service firewall stop
-service firewall restart
-</code></pre><p>查看开启端口和服务</p>
-<pre><code># 查看哪些端口已经开启
-firewall-cmd --permanent --list-ports
-# 查看有哪些使用互联网的服务
-firewall-cmd --permanent --list-services
-</code></pre><p>开启端口</p>
-<pre><code># 开启8080-8085的端口，如果只需要开启一个就只写那一个端口就行
-firewall-cmd --permanent --add-port=8080-8085/tcp
-# 需要重新加载一下设置
-firewall-cmd --reload
-</code></pre><p>关闭端口</p>
-<pre><code># 端口怎么开启的就怎么关闭。像上面一次开启了5个端口，就不能只关闭其中一个
-firewall-cmd --permanent --remove-port=8080-8085/tcp
-# 重新加载配置
-firewall-cmd --reload
-</code></pre><p><img src="https://i.imgur.com/KAGEQGM.png" alt=""></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/01/16/firewall-centos7/" data-id="cjqz74gk70001dgczp78up77r" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/centos7/">centos7</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/firewall/">firewall</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-Docker-Front-End-Sep-02" class="article article-type-post" itemscope="" itemprop="blogPost">
+        <section id="main"><article id="post-Docker-Front-End-Sep-02" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/01/15/Docker-Front-End-Sep-02/" class="article-date">
   <time datetime="2019-01-15T07:00:29.000Z" itemprop="datePublished">2019-01-15</time>
@@ -134,8 +95,8 @@ firewall-cmd --reload
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/01/15/Docker-Front-End-Sep-02/">高可用MySQL集群搭建</a>
+    <h1 class="article-title" itemprop="name">
+      高可用MySQL集群搭建
     </h1>
   
 
@@ -524,167 +485,28 @@ docker start node1
     </footer>
   </div>
   
-</article>
-
-
+    
+<nav id="article-nav">
   
-    <article id="post-Docker-Front-End-Sep-01" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/01/14/Docker-Front-End-Sep-01/" class="article-date">
-  <time datetime="2019-01-14T12:20:08.000Z" itemprop="datePublished">2019-01-14</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
+    <a href="/2019/01/16/firewall-centos7/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
         
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/01/14/Docker-Front-End-Sep-01/">Docker环境下的前后端分离项目部署与运维笔记01</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>内容来源：<a href="https://coding.imooc.com/class/219.html" target="_blank" rel="noopener">Docker环境下的前后端分离项目部署与运维</a></p>
-<p>要做什么：使用Docker部署前后端分离项目<a href="https://www.renren.io/" target="_blank" rel="noopener">renren-fast</a>。<br>利用多节点集群实现高性能、高负载、高可用。<br>源码都已经公开，本次的重点在于部署运维。</p>
-<p><img src="https://i.imgur.com/shGl8Al.png" alt=""></p>
-<h2 id="开源项目renren-fast"><a href="#开源项目renren-fast" class="headerlink" title="开源项目renren-fast"></a>开源项目renren-fast</h2><p>renren-fast 是一个轻量级的 Spring Boot 快速开发平台，能快速开发项目并交付。项目是前后端分离的，需要先部署好后端，再部署前端页面。<a href="https://www.renren.io/guide/" target="_blank" rel="noopener">官方部署教程</a></p>
-<h3 id="后台项目renren-fast"><a href="#后台项目renren-fast" class="headerlink" title="后台项目renren-fast"></a>后台项目renren-fast</h3><p>框架：SSM（Spring+SpringMVC+MyBatis）；权限管理：Shiro；高速缓存：Redis；后台API调试：Swagger；保存授权认证信息：JWT<br>（在微服务架构下，用户在访问服务A之后再去访问服务B，肯定是不能再去重复认证了。这里就牵扯到单点登录的问题了，JWT将认证信息保存在浏览器上面。）</p>
-<p><img src="https://i.imgur.com/IodtMiX.png" alt=""></p>
-<p>本机部署renren-fast需要注意：renren_fast是springboot构建的，后者用到的是Maven技术。所以本地需要提前安装好jdk，配置环境变量。同时也要根据jdk版本，下载好<a href="http://maven.apache.org/download.cgi" target="_blank" rel="noopener">Maven</a>（Maven是一套软件工程整理和整合工具，不需要安装，解压即可用），配置好环境变量，把Maven的镜像设置为国内阿里云镜像。Maven和renren_fast项目中的pom文件组合即可构建出对应工程。</p>
-<p><img src="https://i.imgur.com/9taDwLk.png" alt=""></p>
-<p>其余的安装官方教程就可以了。</p>
-<p>在启动renren-fast之后，为了检验后台项目是否正常运行。打开<a href="http://localhost:8080/renren-fast/swagger/index.html" target="_blank" rel="noopener">Swagger</a>。可以看到有很多后台API可供调用。我们来测试一下用户登录。</p>
-<p><img src="https://i.imgur.com/rAwBU58.png" alt=""></p>
-<p>在获取验证码内我们输入UUID=“1234”，点击“试一下”，得到返回的验证码。</p>
-<p><img src="https://i.imgur.com/K1Y3rH9.png" alt=""></p>
-<p>随后在用户登录部分，在body内填入对应用户名，密码，验证码(登录的账号密码：admin/admin)和UUID。点击“试一下”即可看到我们得到了正确的response。</p>
-<p><img src="https://i.imgur.com/zDmGmzr.png" alt=""></p>
-<p><img src="https://i.imgur.com/NbT5use.png" alt=""></p>
-<p>到这里，就说明后台项目在本机正常运行啦！</p>
-<h3 id="前端项目renren-fast-vue"><a href="#前端项目renren-fast-vue" class="headerlink" title="前端项目renren-fast-vue"></a>前端项目renren-fast-vue</h3><p>renren-fast-vue基于vue、element-ui构建开发，实现renren-fast后台管理前端功能。</p>
-<p>这部分在本机的安装部署就很简单了，前提是安装好nodejs。</p>
-<pre><code># 克隆项目
-git clone https://github.com/daxiongYang/renren-fast-vue.git
-# 进入项目目录
-cd renren-fast-vue
-# 安装依赖(可能要等几分钟)
-npm install
-# 启动服务
-npm run dev
-</code></pre><p>在启动服务之后可以打开本地8001端口（在后台项目运行的情况下），使用账号密码：admin/admin登录，体验renren-fast后台管理。</p>
-<p><img src="https://i.imgur.com/hQVMDiE.png" alt=""></p>
-<p><img src="https://i.imgur.com/8jG6HrX.png" alt=""></p>
-<p>至此，我们就已经完成了renren-fast在本机上的部署啦！</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/01/14/Docker-Front-End-Sep-01/" data-id="cjqz74gk00000dgcz38l4mq72" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/docker/">docker</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/windows/">windows</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-hello" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/01/13/hello/" class="article-date">
-  <time datetime="2019-01-13T13:28:25.000Z" itemprop="datePublished">2019-01-13</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
+          Centos7上防火墙常用设置
         
+      </div>
+    </a>
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/01/13/hello/">你好</a>
-    </h1>
   
+    <a href="/2019/01/14/Docker-Front-End-Sep-01/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Docker环境下的前后端分离项目部署与运维笔记01</div>
+    </a>
+  
+</nav>
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>欢迎来到 <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>！这是你的第一篇博文。</p>
-<h2 id="快速开始"><a href="#快速开始" class="headerlink" title="快速开始"></a>快速开始</h2><h3 id="创建一篇新博文"><a href="#创建一篇新博文" class="headerlink" title="创建一篇新博文"></a>创建一篇新博文</h3><p>$ hexo new post “My New Post”</p>
-<p>更多信息……</p>
-<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>谢谢你使用 Hexo。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/01/13/hello/" data-id="cjqz74gkc0003dgcz7bf1or2y" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/demo/">demo</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hello/">hello</a></li></ul>
-
-    </footer>
-  </div>
   
 </article>
-
-
-  
-    <article id="post-hello-world" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/01/13/hello-world/" class="article-date">
-  <time datetime="2019-01-13T13:22:37.128Z" itemprop="datePublished">2019-01-13</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/01/13/hello-world/">Hello World</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/01/13/hello-world/" data-id="cjqz74gkd0004dgczlq00nov5" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-
 
 </section>
         
