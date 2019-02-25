@@ -62,6 +62,106 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-footballStarBase-01" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/01/30/footballStarBase-01/" class="article-date">
+  <time datetime="2019-01-30T02:09:57.000Z" itemprop="datePublished">2019-01-30</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/01/30/footballStarBase-01/">iris+xorm Go语言开发球星库(一)</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>内容来源：<a href="https://www.imooc.com/learn/1066" target="_blank" rel="noopener">iris+xorm Go语言开发球星库</a></p>
+<p>课程代码：<a href="https://github.com/yz124/superstar" target="_blank" rel="noopener">https://github.com/yz124/superstar</a></p>
+<p>首先看我们要实现的球星库具有哪些功能。</p>
+<p>球星列表（首页、搜索结果）<br>球星详情（个人资料展示）<br>管理后台（数据列表，信息增删改查）</p>
+<p>关键技术点<br>开发语言:golang<br>web框架：iris<br>xorm,template,bootstrap</p>
+<div align="center"><br><img src="https://i.imgur.com/knBiBme.png" width="458" height="230"><br></div>
+
+<h2 id="iris常用功能"><a href="#iris常用功能" class="headerlink" title="iris常用功能"></a>iris常用功能</h2><p>实例文档：<a href="https://github.com/iris-contrib/examples#table-of-contents" target="_blank" rel="noopener">https://github.com/iris-contrib/examples#table-of-contents</a></p>
+<p>路由规则设置</p>
+<pre><code># Get,Post方法
+app.Handle(&quot;GET&quot;, &quot;/&quot;, func(ctx iris.Context){...})
+app.Get(&quot;/home&quot;, func(ctx iris.Context){...})
+app.Get(&quot;/donate&quot;, donateHandler, donateFinishHandler)
+
+# 格式化参数和子目录
+# userid 是一个int型参数，最小值是1
+app.Get(&quot;/user/{userid:int min(1)}&quot;, func(ctx iris.Context){...})
+# adminRouters.Get就处理路径为&quot;/admin/login&quot;的请求
+adminRouters := app.Party(&quot;/admin&quot;, adminMiddleware)
+adminRouters.Get(&quot;/login&quot;, func(ctx iris.Context){...})
+
+# 子域名
+v1 := app.Party(&quot;v1.&quot;)
+usersAPI := v1.Party(&quot;/api/users&quot;)
+usersAPI.Get(&quot;/{userid:int}&quot;, func(ctx iris.Context){...})
+</code></pre><p>一个简单的helloworld</p>
+<p>main.go</p>
+<pre><code>import (
+    &quot;github.com/kataras/iris&quot;
+)
+
+func main() {
+    app := iris.New()
+
+    htmlEngine := iris.HTML(&quot;/superstar/_demo/iris&quot;, &quot;.html&quot;)
+    app.RegisterView(htmlEngine)
+
+    app.Get(&quot;/&quot;, func(ctx iris.Context) {
+        ctx.WriteString(&quot;Hello world! -- from iris.&quot;)
+    })
+
+    # 使用模板加载页面
+    app.Get(&quot;/hello&quot;, func(ctx iris.Context) {
+        ctx.ViewData(&quot;Title&quot;, &quot;测试页面&quot;)
+        ctx.ViewData(&quot;Content&quot;, &quot;Hello world! -- from template&quot;)
+        ctx.View(&quot;hello.html&quot;)
+    })
+
+    app.Run(iris.Addr(&quot;:8080&quot;), iris.WithCharset(&quot;UTF-8&quot;))
+}
+</code></pre><p>hello.html</p>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;{{.Title}}&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+{{.Content}}
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre><h2 id="xorm"><a href="#xorm" class="headerlink" title="xorm"></a>xorm</h2><p>项目地址：<a href="https://github.com/go-xorm/xorm" target="_blank" rel="noopener">https://github.com/go-xorm/xorm</a><br>支持原生SQL，也有orm结构化支持</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/01/30/footballStarBase-01/" data-id="cjskfw006000asccznd4me19o" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/golang/">golang</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iris/">iris</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/xorm/">xorm</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-Docker-Front-End-Sep-03" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/01/29/Docker-Front-End-Sep-03/" class="article-date">
@@ -262,7 +362,7 @@ a9ac037b1f778bae462b7656454e4915fb554b2b 172.20.0.3:6379 master - 0 154873397614
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/01/29/Docker-Front-End-Sep-03/" data-id="cjrhlx61c0007mscz4muko6r2" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/01/29/Docker-Front-End-Sep-03/" data-id="cjskfw0020007scczjpyvx7do" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/docker/">docker</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/redis/">redis</a></li></ul>
@@ -321,7 +421,7 @@ firewall-cmd --reload
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/01/16/firewall-centos7/" data-id="cjrhlx6190004msczjih83jmt" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/01/16/firewall-centos7/" data-id="cjskfw0040008scczbmxt7wzy" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/centos7/">centos7</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/firewall/">firewall</a></li></ul>
@@ -405,7 +505,7 @@ docker volume create --name v5
 # MYSQL_ROOT_PASSWORD是数据库登录密码
 # CLUSTER_NAME是集群名字
 # XTRABACKUP_PASSWORD是集群内节点间同步密码
-docker run -d -p 3307:3306 -e MYSQL_ROOT_PASSWORD=abc123456 -e CLUSTER_NAME=PXC -e XTRABACKUP_PASSWORD=abc123456 -v v1:/var/lib/mysql -v --privileged --name=node1 --net=net1 --ip 172.19.0.2 pxc
+docker run -d -p 3307:3306 -e MYSQL_ROOT_PASSWORD=abc123456 -e CLUSTER_NAME=PXC -e XTRABACKUP_PASSWORD=abc123456 -v v1:/var/lib/mysql --privileged --name=node1 --net=net1 --ip 172.19.0.2 pxc
 </code></pre><ul>
 <li>按照视频教程的命令启动PXC容器时一直失败，报如下错误：mkdir: cannot create directory ‘’: No such file or directory。后来在<a href="https://blog.csdn.net/buildcourage/article/details/85054773" target="_blank" rel="noopener">博客</a>中找到了解决方法。<strong>命令里面除掉 “–-privileged”参数</strong>，去掉这个参数后节点启动正常。</li>
 </ul>
@@ -419,13 +519,13 @@ docker run -d -p 3307:3306 -e MYSQL_ROOT_PASSWORD=abc123456 -e CLUSTER_NAME=PXC 
 </ol>
 <p><strong>必须第1个MySQL节点启动成功（大约等1-2分钟），用MySQL客户端能连接上之后，再去创建其他MySQL节点。</strong></p>
 <pre><code># 创建第2个MySQL节点
-docker run -d -p 3308:3306 -e MYSQL_ROOT_PASSWORD=abc123456 -e CLUSTER_NAME=PXC -e XTRABACKUP_PASSWORD=abc123456 -e CLUSTER_JOIN=node1 -v v2:/var/lib/mysql -v --privileged --name=node2 --net=net1 --ip 172.19.0.3 pxc
+docker run -d -p 3308:3306 -e MYSQL_ROOT_PASSWORD=abc123456 -e CLUSTER_NAME=PXC -e XTRABACKUP_PASSWORD=abc123456 -e CLUSTER_JOIN=node1 v2:/var/lib/mysql -v --privileged --name=node2 --net=net1 --ip 172.19.0.3 pxc
 # 创建第3个MySQL节点
-docker run -d -p 3309:3306 -e MYSQL_ROOT_PASSWORD=abc123456 -e CLUSTER_NAME=PXC -e XTRABACKUP_PASSWORD=abc123456 -e CLUSTER_JOIN=node1 -v v3:/var/lib/mysql -v --privileged --name=node3 --net=net1 --ip 172.19.0.4 pxc
+docker run -d -p 3309:3306 -e MYSQL_ROOT_PASSWORD=abc123456 -e CLUSTER_NAME=PXC -e XTRABACKUP_PASSWORD=abc123456 -e CLUSTER_JOIN=node1 v3:/var/lib/mysql -v --privileged --name=node3 --net=net1 --ip 172.19.0.4 pxc
 # 创建第4个MySQL节点
-docker run -d -p 3310:3306 -e MYSQL_ROOT_PASSWORD=abc123456 -e CLUSTER_NAME=PXC -e XTRABACKUP_PASSWORD=abc123456 -e CLUSTER_JOIN=node1 -v v4:/var/lib/mysql -v --privileged --name=node4 --net=net1 --ip 172.19.0.5 pxc
+docker run -d -p 3310:3306 -e MYSQL_ROOT_PASSWORD=abc123456 -e CLUSTER_NAME=PXC -e XTRABACKUP_PASSWORD=abc123456 -e CLUSTER_JOIN=node1 v4:/var/lib/mysql -v --privileged --name=node4 --net=net1 --ip 172.19.0.5 pxc
 # 创建第5个MySQL节点
-docker run -d -p 3311:3306 -e MYSQL_ROOT_PASSWORD=abc123456 -e CLUSTER_NAME=PXC -e XTRABACKUP_PASSWORD=abc123456 -e CLUSTER_JOIN=node1 -v v5:/var/lib/mysql -v --privileged --name=node5 --net=net1 --ip 172.19.0.6 pxc
+docker run -d -p 3311:3306 -e MYSQL_ROOT_PASSWORD=abc123456 -e CLUSTER_NAME=PXC -e XTRABACKUP_PASSWORD=abc123456 -e CLUSTER_JOIN=node1 v5:/var/lib/mysql -v --privileged --name=node5 --net=net1 --ip 172.19.0.6 pxc
 </code></pre><p>最后效果：</p>
 <div align="center"><br><img src="https://i.imgur.com/e8SDJtU.png"><br></div>
 
@@ -728,7 +828,7 @@ docker start node1
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/01/15/Docker-Front-End-Sep-02/" data-id="cjrhlx6130001msczdh5ab5l3" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/01/15/Docker-Front-End-Sep-02/" data-id="cjskfw007000bsccznlzkaad9" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Haproxy/">Haproxy</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySQL/">MySQL</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/XtraBackup/">XtraBackup</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/docker/">docker</a></li></ul>
@@ -797,7 +897,7 @@ npm run dev
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/01/14/Docker-Front-End-Sep-01/" data-id="cjrhlx60w0000msczl2x6c2mu" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/01/14/Docker-Front-End-Sep-01/" data-id="cjskfvzze0000scczwttcu6bi" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/docker/">docker</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/windows/">windows</a></li></ul>
@@ -839,7 +939,7 @@ npm run dev
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/01/13/hello/" data-id="cjrhlx6170003msczg6ic18ud" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/01/13/hello/" data-id="cjskfw009000csccz01fs1fez" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/demo/">demo</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hello/">hello</a></li></ul>
@@ -886,7 +986,7 @@ npm run dev
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/01/13/hello-world/" data-id="cjrhlx61b0005mscztmb3j8ff" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/01/13/hello-world/" data-id="cjskfw00b000fscczjbwfxeen" class="article-share-link">Share</a>
       
       
     </footer>
@@ -909,7 +1009,7 @@ npm run dev
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Haproxy/">Haproxy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/">MySQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/XtraBackup/">XtraBackup</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/centos7/">centos7</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/demo/">demo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/">docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/firewall/">firewall</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hello/">hello</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/">redis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/windows/">windows</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Haproxy/">Haproxy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/">MySQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/XtraBackup/">XtraBackup</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/centos7/">centos7</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/demo/">demo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/">docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/firewall/">firewall</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/golang/">golang</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hello/">hello</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iris/">iris</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/">redis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/windows/">windows</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/xorm/">xorm</a></li></ul>
     </div>
   </div>
 
@@ -919,7 +1019,7 @@ npm run dev
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Haproxy/" style="font-size: 10px;">Haproxy</a> <a href="/tags/MySQL/" style="font-size: 10px;">MySQL</a> <a href="/tags/XtraBackup/" style="font-size: 10px;">XtraBackup</a> <a href="/tags/centos7/" style="font-size: 10px;">centos7</a> <a href="/tags/demo/" style="font-size: 10px;">demo</a> <a href="/tags/docker/" style="font-size: 20px;">docker</a> <a href="/tags/firewall/" style="font-size: 10px;">firewall</a> <a href="/tags/hello/" style="font-size: 10px;">hello</a> <a href="/tags/java/" style="font-size: 10px;">java</a> <a href="/tags/redis/" style="font-size: 10px;">redis</a> <a href="/tags/windows/" style="font-size: 10px;">windows</a>
+      <a href="/tags/Haproxy/" style="font-size: 10px;">Haproxy</a> <a href="/tags/MySQL/" style="font-size: 10px;">MySQL</a> <a href="/tags/XtraBackup/" style="font-size: 10px;">XtraBackup</a> <a href="/tags/centos7/" style="font-size: 10px;">centos7</a> <a href="/tags/demo/" style="font-size: 10px;">demo</a> <a href="/tags/docker/" style="font-size: 20px;">docker</a> <a href="/tags/firewall/" style="font-size: 10px;">firewall</a> <a href="/tags/golang/" style="font-size: 10px;">golang</a> <a href="/tags/hello/" style="font-size: 10px;">hello</a> <a href="/tags/iris/" style="font-size: 10px;">iris</a> <a href="/tags/java/" style="font-size: 10px;">java</a> <a href="/tags/redis/" style="font-size: 10px;">redis</a> <a href="/tags/windows/" style="font-size: 10px;">windows</a> <a href="/tags/xorm/" style="font-size: 10px;">xorm</a>
     </div>
   </div>
 
@@ -941,6 +1041,10 @@ npm run dev
       <ul>
         
           <li>
+            <a href="/2019/01/30/footballStarBase-01/">iris+xorm Go语言开发球星库(一)</a>
+          </li>
+        
+          <li>
             <a href="/2019/01/29/Docker-Front-End-Sep-03/">Redis集群搭建</a>
           </li>
         
@@ -954,10 +1058,6 @@ npm run dev
         
           <li>
             <a href="/2019/01/14/Docker-Front-End-Sep-01/">Docker环境下的前后端分离项目部署与运维笔记01</a>
-          </li>
-        
-          <li>
-            <a href="/2019/01/13/hello/">你好</a>
           </li>
         
       </ul>

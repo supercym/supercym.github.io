@@ -5,22 +5,15 @@
   
 
   
-  <title>Centos7上防火墙常用设置 | 昶月</title>
+  <title>Tag: golang | 昶月</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="查看、启动、关闭、重启防火墙 firewall-cmd --state service firewall start service firewall stop service firewall restart 查看开启端口和服务 # 查看哪些端口已经开启 firewall-cmd --permanent --list-ports # 查看有哪些使用互联网的服务 firewall-cmd --pe">
-<meta name="keywords" content="firewall,centos7">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Centos7上防火墙常用设置">
-<meta property="og:url" content="http://yoursite.com/2019/01/16/firewall-centos7/index.html">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="昶月">
+<meta property="og:url" content="http://yoursite.com/tags/golang/index.html">
 <meta property="og:site_name" content="昶月">
-<meta property="og:description" content="查看、启动、关闭、重启防火墙 firewall-cmd --state service firewall start service firewall stop service firewall restart 查看开启端口和服务 # 查看哪些端口已经开启 firewall-cmd --permanent --list-ports # 查看有哪些使用互联网的服务 firewall-cmd --pe">
 <meta property="og:locale" content="zh-cn">
-<meta property="og:image" content="https://i.imgur.com/KAGEQGM.png">
-<meta property="og:updated_time" content="2019-01-16T01:07:36.450Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Centos7上防火墙常用设置">
-<meta name="twitter:description" content="查看、启动、关闭、重启防火墙 firewall-cmd --state service firewall start service firewall stop service firewall restart 查看开启端口和服务 # 查看哪些端口已经开启 firewall-cmd --permanent --list-ports # 查看有哪些使用互联网的服务 firewall-cmd --pe">
-<meta name="twitter:image" content="https://i.imgur.com/KAGEQGM.png">
+<meta name="twitter:title" content="昶月">
   
     <link rel="alternate" href="/atom.xml" title="昶月" type="application/atom+xml">
   
@@ -67,83 +60,40 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-firewall-centos7" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/01/16/firewall-centos7/" class="article-date">
-  <time datetime="2019-01-16T01:05:51.000Z" itemprop="datePublished">2019-01-16</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
+        <section id="main">
   
-    <h1 class="article-title" itemprop="name">
-      Centos7上防火墙常用设置
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2019" class="archive-year">2019</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      <a href="/2019/01/30/footballStarBase-01/" class="archive-article-date">
+  <time datetime="2019-01-30T02:09:57.000Z" itemprop="datePublished">1月 30</time>
+</a>
+      
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2019/01/30/footballStarBase-01/">iris+xorm Go语言开发球星库(一)</a>
     </h1>
   
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>查看、启动、关闭、重启防火墙</p>
-<pre><code>firewall-cmd --state
-service firewall start
-service firewall stop
-service firewall restart
-</code></pre><p>查看开启端口和服务</p>
-<pre><code># 查看哪些端口已经开启
-firewall-cmd --permanent --list-ports
-# 查看有哪些使用互联网的服务
-firewall-cmd --permanent --list-services
-</code></pre><p>开启端口</p>
-<pre><code># 开启8080-8085的端口，如果只需要开启一个就只写那一个端口就行
-firewall-cmd --permanent --add-port=8080-8085/tcp
-# 需要重新加载一下设置
-firewall-cmd --reload
-</code></pre><p>关闭端口</p>
-<pre><code># 端口怎么开启的就怎么关闭。像上面一次开启了5个端口，就不能只关闭其中一个
-firewall-cmd --permanent --remove-port=8080-8085/tcp
-# 重新加载配置
-firewall-cmd --reload
-</code></pre><p><img src="https://i.imgur.com/KAGEQGM.png" alt=""></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/01/16/firewall-centos7/" data-id="cjskfw0040008scczbmxt7wzy" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/centos7/">centos7</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/firewall/">firewall</a></li></ul>
-
-    </footer>
+    </header>
   </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="/2019/01/29/Docker-Front-End-Sep-03/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          Redis集群搭建
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2019/01/15/Docker-Front-End-Sep-02/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">高可用MySQL集群搭建</div>
-    </a>
-  
-</nav>
-
-  
 </article>
+  
+  
+    </div></section>
+  
+
 
 </section>
         

@@ -31,7 +31,7 @@
 <meta property="og:image" content="https://i.imgur.com/FjapNnX.png">
 <meta property="og:image" content="https://i.imgur.com/Mbjg9nv.png">
 <meta property="og:image" content="https://i.imgur.com/WVlBHf0.png">
-<meta property="og:updated_time" content="2019-01-16T13:09:55.906Z">
+<meta property="og:updated_time" content="2019-02-25T14:30:05.573Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="高可用MySQL集群搭建">
 <meta name="twitter:description" content="内容来源：Docker环境下的前后端分离项目部署与运维 这篇文档主要包含三个部分：  使用docker搭建MySQL集群 使用haproxy做负载均衡并实现双机热备 利用XtraBackup完成数据库的热备份和冷还原  1. 使用docker搭建MySQL集群这一部分学习使用docker搭建MySQL集群。常用的MySQL集群方案有Replication和PXC两种，性能对比如图。   Perco">
@@ -154,7 +154,7 @@ docker volume create --name v5
 # MYSQL_ROOT_PASSWORD是数据库登录密码
 # CLUSTER_NAME是集群名字
 # XTRABACKUP_PASSWORD是集群内节点间同步密码
-docker run -d -p 3307:3306 -e MYSQL_ROOT_PASSWORD=abc123456 -e CLUSTER_NAME=PXC -e XTRABACKUP_PASSWORD=abc123456 -v v1:/var/lib/mysql -v --privileged --name=node1 --net=net1 --ip 172.19.0.2 pxc
+docker run -d -p 3307:3306 -e MYSQL_ROOT_PASSWORD=abc123456 -e CLUSTER_NAME=PXC -e XTRABACKUP_PASSWORD=abc123456 -v v1:/var/lib/mysql --privileged --name=node1 --net=net1 --ip 172.19.0.2 pxc
 </code></pre><ul>
 <li>按照视频教程的命令启动PXC容器时一直失败，报如下错误：mkdir: cannot create directory ‘’: No such file or directory。后来在<a href="https://blog.csdn.net/buildcourage/article/details/85054773" target="_blank" rel="noopener">博客</a>中找到了解决方法。<strong>命令里面除掉 “–-privileged”参数</strong>，去掉这个参数后节点启动正常。</li>
 </ul>
@@ -168,13 +168,13 @@ docker run -d -p 3307:3306 -e MYSQL_ROOT_PASSWORD=abc123456 -e CLUSTER_NAME=PXC 
 </ol>
 <p><strong>必须第1个MySQL节点启动成功（大约等1-2分钟），用MySQL客户端能连接上之后，再去创建其他MySQL节点。</strong></p>
 <pre><code># 创建第2个MySQL节点
-docker run -d -p 3308:3306 -e MYSQL_ROOT_PASSWORD=abc123456 -e CLUSTER_NAME=PXC -e XTRABACKUP_PASSWORD=abc123456 -e CLUSTER_JOIN=node1 -v v2:/var/lib/mysql -v --privileged --name=node2 --net=net1 --ip 172.19.0.3 pxc
+docker run -d -p 3308:3306 -e MYSQL_ROOT_PASSWORD=abc123456 -e CLUSTER_NAME=PXC -e XTRABACKUP_PASSWORD=abc123456 -e CLUSTER_JOIN=node1 v2:/var/lib/mysql -v --privileged --name=node2 --net=net1 --ip 172.19.0.3 pxc
 # 创建第3个MySQL节点
-docker run -d -p 3309:3306 -e MYSQL_ROOT_PASSWORD=abc123456 -e CLUSTER_NAME=PXC -e XTRABACKUP_PASSWORD=abc123456 -e CLUSTER_JOIN=node1 -v v3:/var/lib/mysql -v --privileged --name=node3 --net=net1 --ip 172.19.0.4 pxc
+docker run -d -p 3309:3306 -e MYSQL_ROOT_PASSWORD=abc123456 -e CLUSTER_NAME=PXC -e XTRABACKUP_PASSWORD=abc123456 -e CLUSTER_JOIN=node1 v3:/var/lib/mysql -v --privileged --name=node3 --net=net1 --ip 172.19.0.4 pxc
 # 创建第4个MySQL节点
-docker run -d -p 3310:3306 -e MYSQL_ROOT_PASSWORD=abc123456 -e CLUSTER_NAME=PXC -e XTRABACKUP_PASSWORD=abc123456 -e CLUSTER_JOIN=node1 -v v4:/var/lib/mysql -v --privileged --name=node4 --net=net1 --ip 172.19.0.5 pxc
+docker run -d -p 3310:3306 -e MYSQL_ROOT_PASSWORD=abc123456 -e CLUSTER_NAME=PXC -e XTRABACKUP_PASSWORD=abc123456 -e CLUSTER_JOIN=node1 v4:/var/lib/mysql -v --privileged --name=node4 --net=net1 --ip 172.19.0.5 pxc
 # 创建第5个MySQL节点
-docker run -d -p 3311:3306 -e MYSQL_ROOT_PASSWORD=abc123456 -e CLUSTER_NAME=PXC -e XTRABACKUP_PASSWORD=abc123456 -e CLUSTER_JOIN=node1 -v v5:/var/lib/mysql -v --privileged --name=node5 --net=net1 --ip 172.19.0.6 pxc
+docker run -d -p 3311:3306 -e MYSQL_ROOT_PASSWORD=abc123456 -e CLUSTER_NAME=PXC -e XTRABACKUP_PASSWORD=abc123456 -e CLUSTER_JOIN=node1 v5:/var/lib/mysql -v --privileged --name=node5 --net=net1 --ip 172.19.0.6 pxc
 </code></pre><p>最后效果：</p>
 <div align="center"><br><img src="https://i.imgur.com/e8SDJtU.png"><br></div>
 
@@ -477,7 +477,7 @@ docker start node1
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/01/15/Docker-Front-End-Sep-02/" data-id="cjrhlx6130001msczdh5ab5l3" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/01/15/Docker-Front-End-Sep-02/" data-id="cjskfw007000bsccznlzkaad9" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Haproxy/">Haproxy</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySQL/">MySQL</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/XtraBackup/">XtraBackup</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/docker/">docker</a></li></ul>
@@ -519,7 +519,7 @@ docker start node1
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Haproxy/">Haproxy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/">MySQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/XtraBackup/">XtraBackup</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/centos7/">centos7</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/demo/">demo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/">docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/firewall/">firewall</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hello/">hello</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/">redis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/windows/">windows</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Haproxy/">Haproxy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/">MySQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/XtraBackup/">XtraBackup</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/centos7/">centos7</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/demo/">demo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/">docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/firewall/">firewall</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/golang/">golang</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hello/">hello</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iris/">iris</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/">redis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/windows/">windows</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/xorm/">xorm</a></li></ul>
     </div>
   </div>
 
@@ -529,7 +529,7 @@ docker start node1
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Haproxy/" style="font-size: 10px;">Haproxy</a> <a href="/tags/MySQL/" style="font-size: 10px;">MySQL</a> <a href="/tags/XtraBackup/" style="font-size: 10px;">XtraBackup</a> <a href="/tags/centos7/" style="font-size: 10px;">centos7</a> <a href="/tags/demo/" style="font-size: 10px;">demo</a> <a href="/tags/docker/" style="font-size: 20px;">docker</a> <a href="/tags/firewall/" style="font-size: 10px;">firewall</a> <a href="/tags/hello/" style="font-size: 10px;">hello</a> <a href="/tags/java/" style="font-size: 10px;">java</a> <a href="/tags/redis/" style="font-size: 10px;">redis</a> <a href="/tags/windows/" style="font-size: 10px;">windows</a>
+      <a href="/tags/Haproxy/" style="font-size: 10px;">Haproxy</a> <a href="/tags/MySQL/" style="font-size: 10px;">MySQL</a> <a href="/tags/XtraBackup/" style="font-size: 10px;">XtraBackup</a> <a href="/tags/centos7/" style="font-size: 10px;">centos7</a> <a href="/tags/demo/" style="font-size: 10px;">demo</a> <a href="/tags/docker/" style="font-size: 20px;">docker</a> <a href="/tags/firewall/" style="font-size: 10px;">firewall</a> <a href="/tags/golang/" style="font-size: 10px;">golang</a> <a href="/tags/hello/" style="font-size: 10px;">hello</a> <a href="/tags/iris/" style="font-size: 10px;">iris</a> <a href="/tags/java/" style="font-size: 10px;">java</a> <a href="/tags/redis/" style="font-size: 10px;">redis</a> <a href="/tags/windows/" style="font-size: 10px;">windows</a> <a href="/tags/xorm/" style="font-size: 10px;">xorm</a>
     </div>
   </div>
 
@@ -551,6 +551,10 @@ docker start node1
       <ul>
         
           <li>
+            <a href="/2019/01/30/footballStarBase-01/">iris+xorm Go语言开发球星库(一)</a>
+          </li>
+        
+          <li>
             <a href="/2019/01/29/Docker-Front-End-Sep-03/">Redis集群搭建</a>
           </li>
         
@@ -564,10 +568,6 @@ docker start node1
         
           <li>
             <a href="/2019/01/14/Docker-Front-End-Sep-01/">Docker环境下的前后端分离项目部署与运维笔记01</a>
-          </li>
-        
-          <li>
-            <a href="/2019/01/13/hello/">你好</a>
           </li>
         
       </ul>
