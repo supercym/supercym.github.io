@@ -90,24 +90,166 @@
 <table>
 <thead>
 <tr>
-<th style="text-align:left">左对齐标题</th>
-<th style="text-align:right">右对齐标题</th>
-<th style="text-align:center">居中对齐标题</th>
+<th style="text-align:center">容器/服务</th>
+<th style="text-align:center">镜像</th>
+<th style="text-align:center">IP</th>
+<th style="text-align:center">宿主机端口:容器端口</th>
+<th style="text-align:center">备注</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align:left">短文本</td>
-<td style="text-align:right">中等文本</td>
-<td style="text-align:center">稍微长一点的文本</td>
+<td style="text-align:center">本机</td>
+<td style="text-align:center">-</td>
+<td style="text-align:center">192.168.99.110</td>
+<td style="text-align:center">-</td>
+<td style="text-align:center">-</td>
 </tr>
 <tr>
-<td style="text-align:left">稍微长一点的文本</td>
-<td style="text-align:right">短文本</td>
-<td style="text-align:center">中等文本</td>
+<td style="text-align:center">node1</td>
+<td style="text-align:center">percona/percona-xtradb-cluster</td>
+<td style="text-align:center">172.19.0.2</td>
+<td style="text-align:center">3307:3306</td>
+<td style="text-align:center">docker net1网段</td>
+</tr>
+<tr>
+<td style="text-align:center">node2</td>
+<td style="text-align:center">percona/percona-xtradb-cluster</td>
+<td style="text-align:center">172.19.0.3</td>
+<td style="text-align:center">3308:3306</td>
+<td style="text-align:center">docker net1网段</td>
+</tr>
+<tr>
+<td style="text-align:center">node3</td>
+<td style="text-align:center">percona/percona-xtradb-cluster</td>
+<td style="text-align:center">172.19.0.4</td>
+<td style="text-align:center">3309:3306</td>
+<td style="text-align:center">docker net1网段</td>
+</tr>
+<tr>
+<td style="text-align:center">node4</td>
+<td style="text-align:center">percona/percona-xtradb-cluster</td>
+<td style="text-align:center">172.19.0.5</td>
+<td style="text-align:center">3310:3306</td>
+<td style="text-align:center">docker net1网段</td>
+</tr>
+<tr>
+<td style="text-align:center">node5</td>
+<td style="text-align:center">percona/percona-xtradb-cluster</td>
+<td style="text-align:center">172.19.0.6</td>
+<td style="text-align:center">3311:3306</td>
+<td style="text-align:center">docker net1网段</td>
+</tr>
+<tr>
+<td style="text-align:center">h1</td>
+<td style="text-align:center">haproxy</td>
+<td style="text-align:center">172.19.0.7</td>
+<td style="text-align:center">4001:8888 4002:3306</td>
+<td style="text-align:center">docker net1网段</td>
+</tr>
+<tr>
+<td style="text-align:center">h2</td>
+<td style="text-align:center">haproxy</td>
+<td style="text-align:center">172.19.0.8</td>
+<td style="text-align:center">4003:8888 4004:3306</td>
+<td style="text-align:center">docker net1网段</td>
+</tr>
+<tr>
+<td style="text-align:center">keepalived</td>
+<td style="text-align:center">-</td>
+<td style="text-align:center">172.19.0.201</td>
+<td style="text-align:center">-</td>
+<td style="text-align:center">h1的虚拟IP 172.19.0.7-&gt;172.19.0.201</td>
+</tr>
+<tr>
+<td style="text-align:center">keepalived</td>
+<td style="text-align:center">-</td>
+<td style="text-align:center">172.19.0.201</td>
+<td style="text-align:center">-</td>
+<td style="text-align:center">h1的虚拟IP 172.19.0.8-&gt;172.19.0.201</td>
+</tr>
+<tr>
+<td style="text-align:center">keepalived</td>
+<td style="text-align:center">-</td>
+<td style="text-align:center">192.168.99.150</td>
+<td style="text-align:center">-</td>
+<td style="text-align:center">将h1/h2的虚拟IP转为外界可访问的虚拟IP,172.19.0.201-&gt;192.168.99.150,8888:8888;3306:3306</td>
+</tr>
+<tr>
+<td style="text-align:center">r1</td>
+<td style="text-align:center">redis</td>
+<td style="text-align:center">172.20.0.2</td>
+<td style="text-align:center">6001:6379</td>
+<td style="text-align:center">docker net2网段</td>
+</tr>
+<tr>
+<td style="text-align:center">r2</td>
+<td style="text-align:center">redis</td>
+<td style="text-align:center">172.20.0.3</td>
+<td style="text-align:center">6002:6379</td>
+<td style="text-align:center">docker net2网段</td>
+</tr>
+<tr>
+<td style="text-align:center">r3</td>
+<td style="text-align:center">redis</td>
+<td style="text-align:center">172.20.0.4</td>
+<td style="text-align:center">6003:6379</td>
+<td style="text-align:center">docker net2网段</td>
+</tr>
+<tr>
+<td style="text-align:center">r4</td>
+<td style="text-align:center">redis</td>
+<td style="text-align:center">172.20.0.5</td>
+<td style="text-align:center">6004:6379</td>
+<td style="text-align:center">docker net2网段</td>
+</tr>
+<tr>
+<td style="text-align:center">r5</td>
+<td style="text-align:center">redis</td>
+<td style="text-align:center">172.20.0.6</td>
+<td style="text-align:center">6005:6379</td>
+<td style="text-align:center">docker net2网段</td>
+</tr>
+<tr>
+<td style="text-align:center">r6</td>
+<td style="text-align:center">redis</td>
+<td style="text-align:center">172.20.0.7</td>
+<td style="text-align:center">6006:6379</td>
+<td style="text-align:center">docker net2网段</td>
 </tr>
 </tbody>
 </table>
+<h2 id="1-使用连接数据库"><a href="#1-使用连接数据库" class="headerlink" title="1. 使用连接数据库"></a>1. 使用连接数据库</h2><p>通过192.168.99.150连接到mysql数据库，创建数据库renren_fast。</p>
+<p>随后在renren_fast数据库中运行项目中的sql文件(renren-fast/db/mysql.sql)，完成数据库初始化。（记得在mysql.sql文件第一行添加”use renren_fast;”）</p>
+<h3 id="修改application-dev-yml文件"><a href="#修改application-dev-yml文件" class="headerlink" title="修改application-dev.yml文件"></a>修改application-dev.yml文件</h3><p>现在修改application-dev.yml文件(renren-fast\src\main\resources\application-dev.yml)</p>
+<p>视频中老师将数据源设置为外界可访问的虚拟IP，但是我在后续过程中后端项目一直显示连接数据库失败，于是我将其修改为h1/h2竞争的虚拟IP，最后运行成功。</p>
+<p><img src="https://i.imgur.com/NkzKVA0.png" alt=""></p>
+<h3 id="修改application-yml文件"><a href="#修改application-yml文件" class="headerlink" title="修改application.yml文件"></a>修改application.yml文件</h3><p>现在修改application.yml文件(renren-fast\src\main\resources\application.yml)</p>
+<p>redis部分，注释掉host,port和password，添加集群节点IP信息</p>
+<p><img src="https://i.imgur.com/FCmOVh9.png" alt=""></p>
+<p>Tomcat部分，修改port，由于后端项目需要和pxc集群与redis集群连接，而这两个集群所处在不同的docker network网段，所以为了保证通信畅通，后续我们在运行后端项目时，运行所处的网络是host，这里设置的端口即为宿主机端口，我将其设置为6010。（注意防火墙打开）</p>
+<p><img src="https://i.imgur.com/IBRTliQ.png" alt=""></p>
+<p>maven打包</p>
+<p>进入renren-fast目录，执行命令</p>
+<pre><code>mvn clean install -Dmaven.test.skip=true
+</code></pre><p>clean:表示清除之前的jar文件</p>
+<p>install:意味着打包到本地</p>
+<p>-Dmaven.test.skip=true:代表跳过测试代码</p>
+<p>执行完打包命令后，在renren-fast目录下可以看到target文件夹，里面的renren-fast.jar即为打包好的可执行文件。</p>
+<p>部署jar文件&amp;&amp;运行java容器</p>
+<pre><code># 创建数据卷
+docker volume create j1
+</code></pre><p>随后使用文件传输工具将renren-fast.jar上传至/var/lib/docker/volumes/j1/_data/</p>
+<pre><code># 创建java容器
+docker run -it -d --name j1 -v j1:/home/soft --net=host java
+# 进入j1
+docker exec -it j1 bash
+# 运行jar文件
+nohup java -jar /home/soft/renren-fast.jar &amp;
+</code></pre><p>执行完上述命令后，后端项目就已经开始运行了。（这个终端不要管它，直接关掉就好，不要按Ctrl+C，需要什么操作直接再打开一个终端就行。）</p>
+<p>这个时候打开宿主机IP:(Tomcat设置的端口号),就可以看到后台调试界面了</p>
+<p><a href="http://192.168.99.110:6010/renren-fast/swagger/index.html" target="_blank" rel="noopener">http://192.168.99.110:6010/renren-fast/swagger/index.html</a></p>
+<p><img src="https://i.imgur.com/FM1Xb4D.png" alt=""></p>
 
       
     </div>
