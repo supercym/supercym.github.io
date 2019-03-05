@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>Docker环境下的前后端分离项目部署与运维05:前端项目部署 | 昶月</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="内容来源：Docker环境下的前后端分离项目部署与运维 这一节我们实现renren-fast前端项目的部署。 1. 准备工作首先修改源文件 打开renren-fast-vue\static\config\index-prod.js,修改url为上一节n1和n2竞争的虚拟IP以及开放的端口。  打包前端项目 进入renren-fast-vue\，执行就可以打包 npm run build 如果在执行">
+<meta name="keywords" content="docker,renren-fast-vue">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Docker环境下的前后端分离项目部署与运维05:前端项目部署">
+<meta property="og:url" content="http://yoursite.com/2019/03/05/Docker-Front-End-Sep-05/index.html">
+<meta property="og:site_name" content="昶月">
+<meta property="og:description" content="内容来源：Docker环境下的前后端分离项目部署与运维 这一节我们实现renren-fast前端项目的部署。 1. 准备工作首先修改源文件 打开renren-fast-vue\static\config\index-prod.js,修改url为上一节n1和n2竞争的虚拟IP以及开放的端口。  打包前端项目 进入renren-fast-vue\，执行就可以打包 npm run build 如果在执行">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:image" content="http://blogs-pics.oss-cn-beijing.aliyuncs.com/Docker-Front-End-Sep-05/%E4%BF%AE%E6%94%B9index-prod.png">
+<meta property="og:image" content="http://blogs-pics.oss-cn-beijing.aliyuncs.com/Docker-Front-End-Sep-05/fn1%E7%9B%AE%E5%BD%95.png">
+<meta property="og:image" content="http://blogs-pics.oss-cn-beijing.aliyuncs.com/Docker-Front-End-Sep-05/renren-vue.png">
+<meta property="og:image" content="http://blogs-pics.oss-cn-beijing.aliyuncs.com/Docker-Front-End-Sep-05/%E5%8F%8C%E6%9C%BA%E7%83%AD%E5%A4%87.png">
+<meta property="og:updated_time" content="2019-03-05T06:53:57.780Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Docker环境下的前后端分离项目部署与运维05:前端项目部署">
+<meta name="twitter:description" content="内容来源：Docker环境下的前后端分离项目部署与运维 这一节我们实现renren-fast前端项目的部署。 1. 准备工作首先修改源文件 打开renren-fast-vue\static\config\index-prod.js,修改url为上一节n1和n2竞争的虚拟IP以及开放的端口。  打包前端项目 进入renren-fast-vue\，执行就可以打包 npm run build 如果在执行">
+<meta name="twitter:image" content="http://blogs-pics.oss-cn-beijing.aliyuncs.com/Docker-Front-End-Sep-05/%E4%BF%AE%E6%94%B9index-prod.png">
+  
+    <link rel="alternate" href="/atom.xml" title="昶月" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">昶月</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Docker-Front-End-Sep-05" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/03/05/Docker-Front-End-Sep-05/" class="article-date">
+  <time datetime="2019-03-05T02:07:13.000Z" itemprop="datePublished">2019-03-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Docker环境下的前后端分离项目部署与运维05:前端项目部署
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>内容来源：<a href="https://coding.imooc.com/class/219.html" target="_blank" rel="noopener">Docker环境下的前后端分离项目部署与运维</a></p>
+<p>这一节我们实现renren-fast前端项目的部署。</p>
+<h2 id="1-准备工作"><a href="#1-准备工作" class="headerlink" title="1. 准备工作"></a>1. 准备工作</h2><p>首先修改源文件</p>
+<p>打开renren-fast-vue\static\config\index-prod.js,修改url为上一节n1和n2竞争的虚拟IP以及开放的端口。</p>
+<p><img src="http://blogs-pics.oss-cn-beijing.aliyuncs.com/Docker-Front-End-Sep-05/%E4%BF%AE%E6%94%B9index-prod.png" alt=""></p>
+<p>打包前端项目</p>
+<p>进入renren-fast-vue\，执行就可以打包</p>
+<pre><code>npm run build
+</code></pre><p>如果在执行过程中发现速度比较慢，可以使用安装<a href="https://npm.taobao.org" target="_blank" rel="noopener">淘宝的npm镜像</a>。</p>
+<pre><code>npm install -g cnpm --registry=https://registry.npm.taobao.org
+</code></pre><p>在此之后，就可以使用cnpm来进行build</p>
+<pre><code>cnpm run build
+</code></pre><p>在打包完成之后，renren-fast-vue\dist目录就是我们的打包文件夹。</p>
+<p>我们使用Nginx来运行前端项目（这里不是用作负载均衡了），Nginx容器运行在宿主机网段。首先看一下Nginx配置文件nginx.conf的内容。</p>
+<pre><code>user  nginx;
+worker_processes  1;
+
+error_log  /var/log/nginx/error.log warn;
+pid        /var/run/nginx.pid;
+
+
+events {
+    worker_connections  1024;
+}
+
+
+http {
+    include       /etc/nginx/mime.types;
+    default_type  application/octet-stream;
+
+    log_format  main  &apos;$remote_addr - $remote_user [$time_local] &quot;$request&quot; &apos;
+                      &apos;$status $body_bytes_sent &quot;$http_referer&quot; &apos;
+                      &apos;&quot;$http_user_agent&quot; &quot;$http_x_forwarded_for&quot;&apos;;
+
+    access_log  /var/log/nginx/access.log  main;
+
+    sendfile        on;
+    #tcp_nopush     on;
+
+    keepalive_timeout  65;
+
+    #gzip  on;
+
+    proxy_redirect          off;
+    proxy_set_header        Host $host;
+    proxy_set_header        X-Real-IP $remote_addr;
+    proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
+    client_max_body_size    10m;
+    client_body_buffer_size   128k;
+    proxy_connect_timeout   5s;
+    proxy_send_timeout      5s;
+    proxy_read_timeout      5s;
+    proxy_buffer_size        4k;
+    proxy_buffers           4 32k;
+    proxy_busy_buffers_size  64k;
+    proxy_temp_file_write_size 64k;
+
+
+    server {
+        # Nginx运行端口6501
+        listen 6501;
+        # 宿主机IP
+        server_name  192.168.99.110;
+        location  /  {
+            # 容器内项目的路径，这个是自己规定的
+            root  /home/fn1/renren-vue;
+            index  index.html;
+        }
+    }
+}
+</code></pre><h2 id="2-创建并运行Nginx容器"><a href="#2-创建并运行Nginx容器" class="headerlink" title="2. 创建并运行Nginx容器"></a>2. 创建并运行Nginx容器</h2><p>首先在宿主机创建/home/fn1/目录，将nginx.conf文件置于此目录<br>随后在fn1目录下创建renren-vue目录，将打包的dist文件夹里的内容上传到这个目录</p>
+<p><img src="http://blogs-pics.oss-cn-beijing.aliyuncs.com/Docker-Front-End-Sep-05/fn1%E7%9B%AE%E5%BD%95.png" alt=""></p>
+<pre><code>docker run -it -d --name fn1 -v /home/fn1/nginx.conf:/etc/nginx/nginx.conf -v /home/fn1/renren-vue:/home/fn1/renren-vue --privileged --net=host nginx
+</code></pre><p>切换到浏览器上，访问192.168.99.110:6501就可以看到前端页面了。也可以尝试登陆一下（账号密码都是admin）</p>
+<p><img src="http://blogs-pics.oss-cn-beijing.aliyuncs.com/Docker-Front-End-Sep-05/renren-vue.png" alt=""></p>
+<p>同样的，为了防止单节点宕机后服务不可用，我们也一样采用集群+双机热备架构。</p>
+<p>为fn2,fn3运行6502,6503端口。在<strong>创建对应文件夹fn2, fn3和修改nginx.conf</strong>之后运行。打包文件是公用的，所以/home/fn1/renren-vue目录不需要修改。</p>
+<pre><code>docker run -it -d --name fn2 -v /home/fn2/nginx.conf:/etc/nginx/nginx.conf -v /home/fn1/renren-vue:/home/fn2/renren-vue --privileged --net=host nginx
+
+docker run -it -d --name fn3 -v /home/fn3/nginx.conf:/etc/nginx/nginx.conf -v /home/fn1/renren-vue:/home/fn3/renren-vue --privileged --net=host nginx
+</code></pre><p>切换到浏览器上，访问192.168.99.110:6502和192.168.99.110:6503，,可以看到前端页面说明fn2和fn3已经运行起来了。</p>
+<h2 id="3-负载均衡和双机热备"><a href="#3-负载均衡和双机热备" class="headerlink" title="3. 负载均衡和双机热备"></a>3. 负载均衡和双机热备</h2><p>同样的，为了保证高可用，我们依然要进行负载均衡和双机热备。</p>
+<p><img src="http://blogs-pics.oss-cn-beijing.aliyuncs.com/Docker-Front-End-Sep-05/%E5%8F%8C%E6%9C%BA%E7%83%AD%E5%A4%87.png" alt=""></p>
+<p>我们还是使用Nginx来进行负载均衡。配置文件nginx.conf内容如下。</p>
+<pre><code>user  nginx;
+worker_processes  1;
+
+error_log  /var/log/nginx/error.log warn;
+pid        /var/run/nginx.pid;
+
+
+events {
+    worker_connections  1024;
+}
+
+
+http {
+    include       /etc/nginx/mime.types;
+    default_type  application/octet-stream;
+
+    log_format  main  &apos;$remote_addr - $remote_user [$time_local] &quot;$request&quot; &apos;
+                      &apos;$status $body_bytes_sent &quot;$http_referer&quot; &apos;
+                      &apos;&quot;$http_user_agent&quot; &quot;$http_x_forwarded_for&quot;&apos;;
+
+    access_log  /var/log/nginx/access.log  main;
+
+    sendfile        on;
+    #tcp_nopush     on;
+
+    keepalive_timeout  65;
+
+    #gzip  on;
+
+    proxy_redirect          off;
+    proxy_set_header        Host $host;
+    proxy_set_header        X-Real-IP $remote_addr;
+    proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
+    client_max_body_size    10m;
+    client_body_buffer_size   128k;
+    proxy_connect_timeout   5s;
+    proxy_send_timeout      5s;
+    proxy_read_timeout      5s;
+    proxy_buffer_size        4k;
+    proxy_buffers           4 32k;
+    proxy_busy_buffers_size  64k;
+    proxy_temp_file_write_size 64k;
+
+    # 这里就是要负载均衡的三个节点
+    upstream fn {
+        server 192.168.99.110:6501;
+        server 192.168.99.110:6502;
+        server 192.168.99.110:6503;
+    }
+    # 开放的端口是6601，IP是宿主机
+    server {
+        listen       6601;
+        server_name  192.168.99.110; 
+        location / {  
+            proxy_pass   http://fn;
+            index  index.html index.htm;  
+        }  
+
+    }
+}
+</code></pre><p>在宿主机创建/home/ff1目录，将nginx.conf置于此目录中。</p>
+<pre><code>运行前端负载均衡节点ff1
+docker run -it -d --name ff1 -v /home/ff1/nginx.conf:/etc/nginx/nginx.conf --net=host --privileged nginx
+</code></pre><p>访问192.168.99.110:6601，如果可以看到前端页面说明ff1正常工作。</p>
+<p>随后创建/home/ff2目录，将nginx.conf（<strong>开放端口修改为6602</strong>）置于此目录中。</p>
+<pre><code>运行前端负载均衡节点ff2
+docker run -it -d --name ff2 -v /home/ff2/nginx.conf:/etc/nginx/nginx.conf --net=host --privileged nginx
+</code></pre><p>访问192.168.99.110:6602，如果可以看到前端页面说明ff2正常工作。</p>
+<p>最后，在ff1和ff2中安装keepalived进行双机热备。</p>
+<pre><code>docker exec -it ff1 bash
+apt-get update
+apt-get install keepalived
+apt-get install vim
+vim /etc/keepalived/keepalived.conf
+</code></pre><p>ff1的keepalived.conf配置文件</p>
+<pre><code>vrrp_instance VI_1 {
+    state MASTER
+    # 宿主机网卡
+    interface ens33
+    virtual_router_id 52
+    priority 100
+    advert_int 1
+    authentication {
+        auth_type PASS
+        auth_pass 123456
+    }
+    # 虚拟IP 192.168.99.152
+    virtual_ipaddress {
+        192.168.99.152
+    }
+}
+# 虚拟IP开放的端口6701
+virtual_server 192.168.99.152 6701 {
+    delay_loop 3
+    lb_algo rr
+    lb_kind NAT
+    persistence_timeout 50
+    protocol TCP
+    # 转发至ff1
+    real_server 192.168.99.110 6601 {
+        weight 1
+    }
+}
+</code></pre><p>启动keepalived<br>    service keepalived start<br>    exit</p>
+<p>现在在宿主机去ping 192.168.99.152应该可以通，访问192.168.99.152:6701应该可以看到前端页面。</p>
+<p>对ff2进行上述同样操作，区别在于ff2中的keepalived.conf转发至6602。</p>
+<p>到此为止，前端的双机热备方案也完成了。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/03/05/Docker-Front-End-Sep-05/" data-id="cjsvf49zf0007n4czxbf4j8eo" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/docker/">docker</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/renren-fast-vue/">renren-fast-vue</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2019/02/27/Docker-Front-End-Sep-04/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Docker环境下的前后端分离项目部署与运维04:后端项目部署</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Haproxy/">Haproxy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/">MySQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/XtraBackup/">XtraBackup</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/centos7/">centos7</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/demo/">demo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/">docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/firewall/">firewall</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/golang/">golang</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hello/">hello</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iris/">iris</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/">redis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/renren-fast/">renren-fast</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/renren-fast-vue/">renren-fast-vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/windows/">windows</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/xorm/">xorm</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Haproxy/" style="font-size: 10px;">Haproxy</a> <a href="/tags/MySQL/" style="font-size: 10px;">MySQL</a> <a href="/tags/XtraBackup/" style="font-size: 10px;">XtraBackup</a> <a href="/tags/centos7/" style="font-size: 10px;">centos7</a> <a href="/tags/demo/" style="font-size: 10px;">demo</a> <a href="/tags/docker/" style="font-size: 20px;">docker</a> <a href="/tags/firewall/" style="font-size: 10px;">firewall</a> <a href="/tags/golang/" style="font-size: 10px;">golang</a> <a href="/tags/hello/" style="font-size: 10px;">hello</a> <a href="/tags/iris/" style="font-size: 10px;">iris</a> <a href="/tags/java/" style="font-size: 10px;">java</a> <a href="/tags/redis/" style="font-size: 10px;">redis</a> <a href="/tags/renren-fast/" style="font-size: 10px;">renren-fast</a> <a href="/tags/renren-fast-vue/" style="font-size: 10px;">renren-fast-vue</a> <a href="/tags/windows/" style="font-size: 10px;">windows</a> <a href="/tags/xorm/" style="font-size: 10px;">xorm</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/03/05/Docker-Front-End-Sep-05/">Docker环境下的前后端分离项目部署与运维05:前端项目部署</a>
+          </li>
+        
+          <li>
+            <a href="/2019/02/27/Docker-Front-End-Sep-04/">Docker环境下的前后端分离项目部署与运维04:后端项目部署</a>
+          </li>
+        
+          <li>
+            <a href="/2019/01/30/footballStarBase-01/">iris+xorm Go语言开发球星库(一)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/01/29/Docker-Front-End-Sep-03/">Redis集群搭建</a>
+          </li>
+        
+          <li>
+            <a href="/2019/01/16/firewall-centos7/">Centos7上防火墙常用设置</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 Chen Yongming<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
